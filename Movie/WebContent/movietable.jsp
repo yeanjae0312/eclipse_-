@@ -8,6 +8,7 @@
 	Statement stmt = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	
 
 	request.setCharacterEncoding("UTF-8");
 
@@ -22,14 +23,23 @@
     	}
 		stmt = conn.createStatement();
 		
-		String strSQL="select theatername from movietheater";
+		String strSQL="select * from movietheater";
+		
 		pstmt = conn.prepareStatement(strSQL);
 		System.out.println(strSQL);
 		
 		rs = stmt.executeQuery(strSQL);
-		JSONArray arr = new JSONArray();
+		
+		//JSONArray arr = new JSONArray();
 		
 		while(rs.next()) {
+			String theaterid = rs.getString("theaterid");
+			String theatername = rs.getString(2);
+			String location_x = rs.getString(3);
+			String location_y = rs.getString(4);
+			System.out.println(theaterid+","+theatername+","+location_x+","+location_y);
+			out.println(theaterid+","+theatername+","+location_x+","+location_y);
+			/*
 			String theatername = URLEncoder.encode(rs.getString("theatername"), "UTF-8");
 			JSONObject obj = new JSONObject();
 			obj.put("theatername", theatername);
@@ -37,6 +47,7 @@
 				arr.add(obj);
 			}
 			out.println(arr);
+			*/
 			
 		}
 		
