@@ -29,7 +29,6 @@
 			String strSQL = "select * from movietheater";
 
 			pstmt = conn.prepareStatement(strSQL);
-
 			System.out.println("strSQL = " + strSQL);
 
 			rs = stmt.executeQuery(strSQL);

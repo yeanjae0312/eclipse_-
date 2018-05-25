@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.sql.*, java.util.*, java.net.URLEncoder" %>
-<%@ page import="org.json.simple.JSONObject"%> 
+    pageEncoding="UTF-8" import="java.sql.*, java.util.*, java.net.URLEncoder"%>
+<%@ page import="org.json.simple.JSONObject"%>
 <%@ page import="org.json.simple.JSONArray"%>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	Statement stmt = null;
@@ -22,7 +21,7 @@
     	}
 		stmt = conn.createStatement();
 		
-		String strSQL="select * from movietheater";
+		String strSQL="select * from movietheater;";
 		
 		pstmt = conn.prepareStatement(strSQL);
 		System.out.println(strSQL);
@@ -30,14 +29,29 @@
 		rs = stmt.executeQuery(strSQL);
 		
 		//JSONArray arr = new JSONArray();
+		JSONObject jsonMain = new JSONObject();
+		JSONArray jArray = new JSONArray();
 		
 		while(rs.next()) {
-			String theaterid = rs.getString("theaterid");
+			System.out.println("while안");
+			JSONObject jObject = new JSONObject();
+			
+			//String theaterid = rs.getString("theaterid");
 			String theatername = rs.getString(2);
 			String location_x = rs.getString(3);
 			String location_y = rs.getString(4);
-			System.out.println(theaterid+","+theatername+","+location_x+","+location_y);
-			out.println(theaterid+","+theatername+","+location_x+","+location_y);
+			
+			jObject.put("theatername", rs.getString(2));
+			jObject.put("location_x", rs.getString(3));
+			jObject.put("location_y", rs.getString(4));
+			
+			jArray.add(jObject);
+			
+			//System.out.println("영화관이름: "+theatername+", x좌표: "+location_x+", y좌표: "+location_y);
+			//System.out.println(theaterid+","+theatername+","+location_x+","+location_y);
+			//out.println("영화관이름: "+theatername+", x좌표: "+location_x+", y좌표: "+location_y+"//");
+			//out.println(theaterid+","+theatername+","+location_x+","+location_y);
+			
 			/*
 			String theatername = URLEncoder.encode(rs.getString("theatername"), "UTF-8");
 			JSONObject obj = new JSONObject();
@@ -49,17 +63,20 @@
 			*/
 			
 		}
+		jsonMain.put("datasend", jArray);
+		out.println(jsonMain);
+		out.flush();
+		System.out.println("jsonMain = " + jsonMain);
 		
 		
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
 %>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>movietable.jsp</title>
+<title>movieLocation.jsp</title>
 </head>
 <body>
 
