@@ -14,7 +14,7 @@
 	String key = request.getParameter("key");
 	System.out.println("key = " + key);
 
-	if (key.equals("ok")) {
+	//if (key.equals("ok")) {
 		Class.forName("com.mysql.jdbc.Driver");
 		try {
 			String url = "jdbc:mysql://yeanjae0312.cut3keoa0m4b.ap-northeast-2.rds.amazonaws.com:3306/yeanjae0312";
@@ -73,7 +73,7 @@
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	//}
 %>
 
 <html>
